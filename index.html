@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Мамочка, с Новым годом!</title>
+  <style>
+    /* Сброс некоторых стандартных отступов и шрифтов */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ffefba 0%, #ffffff 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    /* Оформление заголовка */
+    h1 {
+      margin-top: 40px;
+      font-size: 3em;
+      text-align: center;
+      color: #c21807; /* Новый год – красный цвет :) */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Контейнер для гирлянды */
+    .garland {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      justify-content: space-around;
+      margin: 20px auto 40px auto;
+    }
+
+    /* Оформление «лампочек» гирлянды */
+    .light {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: red;
+      animation: blink 1.5s infinite;
+    }
+
+    /* Несколько разных цветов */
+    .light:nth-child(2) {
+      background: gold;
+      animation-delay: 0.3s;
+    }
+
+    .light:nth-child(3) {
+      background: limegreen;
+      animation-delay: 0.6s;
+    }
+
+    .light:nth-child(4) {
+      background: deepskyblue;
+      animation-delay: 0.9s;
+    }
+
+    /* Анимация мигания гирлянды */
+    @keyframes blink {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    /* Ёлка */
+    .tree-container {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .tree {
+      width: 0;
+      height: 0;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 70px solid green;
+      position: relative;
+      animation: wiggle 3s infinite;
+    }
+
+    /* Второй ярус ёлки */
+    .tree:before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      left: -30px;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      border-bottom: 40px solid green;
+    }
+
+    /* Третий ярус ёлки */
+    .tree:after {
+      content: "";
+      position: absolute;
+      top: -85px;
+      left: -20px;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 30px solid green;
+    }
+
+    /* Анимация лёгкого покачивания ёлки */
+    @keyframes wiggle {
+      0%, 100% {
+        transform: rotate(-1deg);
+      }
+      50% {
+        transform: rotate(1deg);
+      }
+    }
+
+    /* Ствол ёлки */
+    .tree-stump {
+      width: 15px;
+      height: 20px;
+      background: #8b4513;
+      margin: 0 auto;
+      border-radius: 2px;
+      margin-top: -4px;
+    }
+
+    /* «Огни» на ёлке — можно сделать кружочки */
+    .lights {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none; /* Чтобы клики проходили сквозь них */
+    }
+
+    /* Разместим несколько огоньков случайно */
+    .lights span {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: yellow;
+      border-radius: 50%;
+      animation: christmasLights 1.5s infinite;
+    }
+
+    .lights span:nth-child(1) {
+      top: 20px; left: 35px;
+    }
+    .lights span:nth-child(2) {
+      top: 10px; left: 15px;
+      background: red;
+      animation-delay: 0.2s;
+    }
+    .lights span:nth-child(3) {
+      top: 5px; left: 42px;
+      background: gold;
+      animation-delay: 0.4s;
+    }
+    .lights span:nth-child(4) {
+      top: 35px; left: 20px;
+      background: limegreen;
+      animation-delay: 0.6s;
+    }
+    .lights span:nth-child(5) {
+      top: 55px; left: 40px;
+      background: blue;
+      animation-delay: 0.8s;
+    }
+
+    @keyframes christmasLights {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.2;
+      }
+    }
+
+    /* Контейнер с тремя «подарочными квадратами» */
+    .wishes-container {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .gift {
+      width: 150px;
+      height: 150px;
+      background-color: #ffeadb;
+      border-radius: 10px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: #333;
+      text-align: center;
+      transition: transform 0.3s;
+      position: relative;
+    }
+
+    .gift:hover {
+      transform: scale(1.05);
+    }
+
+    /* Спрятанный текст пожеланий */
+    .message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 90%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 1em;
+      color: #851414;
+      font-weight: bold;
+      display: none;
+      padding: 5px;
+    }
+
+    /* Снежинки (дополнительный декор) */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: #fff;
+      font-size: 1.5rem;
+      opacity: 0.8;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(120vh);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Гирлянда -->
+  <div class="garland">
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+  </div>
+
+  <!-- Заголовок -->
+  <h1>Мамочка, с Новым годом!</h1>
+
+  <!-- Ёлка с огнями -->
+  <div class="tree-container">
+    <div class="tree">
+      <div class="lights">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="tree-stump"></div>
+  </div>
+
+  <!-- Три «подарочных» квадрата -->
+  <div class="wishes-container">
+    <div class="gift" onclick="showWish(1)">
+      Подарок 1
+      <div class="message" id="wish1">
+        Мамочка, спасибо за всю твою доброту и заботу. Ты — моё вдохновение!
+      </div>
+    </div>
+
+    <div class="gift" onclick="showWish(2)">
+      Подарок 2
+      <div class="message" id="wish2">
+        Желаю тебе крепкого здоровья, успеха и каждодневных радостей. Пусть Новый год принесёт только счастье!
+      </div>
+    </div>
+
+    <div class="gift" onclick="showWish(3)">
+      Подарок 3
+      <div class="message" id="wish3">
+        С Новым годом, мамочка! Ты всегда в моём сердце, я безмерно ценю всё, что ты делаешь для меня.
+      </div>
+    </div>
+  </div>
+
+  <!-- Несколько снежинок, «падающих» сверху -->
+  <div class="snowflake" style="left: 10%;">❄</div>
+  <div class="snowflake" style="left: 30%;">❄</div>
+  <div class="snowflake" style="left: 50%;">❄</div>
+  <div class="snowflake" style="left: 70%;">❄</div>
+  <div class="snowflake" style="left: 90%;">❄</div>
+
+  <script>
+    // Функция, показывающая текст при клике на подарок
+    function showWish(num) {
+      const wish = document.getElementById(`wish${num}`);
+      // Если текст уже виден — скрываем, если нет — показываем
+      if (wish.style.display === "block") {
+        wish.style.display = "none";
+      } else {
+        wish.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
